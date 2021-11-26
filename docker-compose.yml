@@ -15,9 +15,9 @@ services:
       - "15672:15672"
 
   rabbitmq-2:
-    build: 
-      context: ./
-      dockerfile: Dockerfile
+    # build: 
+    #   context: ./
+    #   dockerfile: Dockerfile
     image: yowko/rabbitmq:3.9.10-management 
     hostname: rabbitmq-2
     environment:
