@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+
+  rabbitmq-1:
+    image: rabbitmq:3.9.10-management
+    hostname: rabbitmq-1
+    environment:
+      - RABBITMQ_DEFAULT_VHOST=/
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=pass.123
+      - RABBITMQ_ERLANG_COOKIE=yowkotest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  rabbitmq-2:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    image: yowko/rabbitmq:3.9.10-management 
+    hostname: rabbitmq-2
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=yowkotest
+    depends_on:
+      - rabbitmq-1
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+
+  rabbitmq-3:
+    image: yowko/rabbitmq:3.9.10-management 
+    hostname: rabbitmq-3
+    environment:
+      - RABBITMQ_ERLANG_COOKIE=yowkotest
+    depends_on:
+      - rabbitmq-1
+    ports:
+      - "5674:5672"
+      - "15674:15672"
